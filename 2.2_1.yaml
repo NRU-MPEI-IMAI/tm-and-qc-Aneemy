@@ -1,0 +1,43 @@
+name: binary increment
+source code: |
+  input: '001122'
+  blank: ' '
+  start state: start
+  table:
+    start:
+      1: {R: checkNumOne}
+      0: {write: a, R: checkOne}
+      ['a']: R
+      ['b']: R
+      ['c']: R
+      ' ': {L: check}
+    checkNumOne:
+      1: R
+      ' ': {write: '!', R: done}
+    checkOne:
+      1: {write: b, R: checkTwo}
+      0: R
+      ['b']: R
+    checkTwo: 
+      2: {write: c, L: backStart}
+      1: R
+      ['c']: R
+    backStart:
+      [0, 1, 2, 'a', 'b', 'c']: L
+      ' ': {R: start}
+    check:
+      ['a', 'b', 'c']: L
+      ' ': {write: '!', L: return}
+    return:
+      [0, 1, 2, 'a', 'b', 'c']: L
+      ' ': {R: done}
+    done:
+positions:
+  start: {x: 432.84, y: 280.39}
+  checkNumOne: {x: 499.75, y: 387.63}
+  checkOne: {x: 293.72, y: 169.31}
+  checkTwo: {x: 169.91, y: 311.54}
+  backStart: {x: 353.72, y: 438.73}
+  check: {x: 401.42, y: 65.42}
+  return: {x: 548.8, y: 29.33}
+  done: {x: 681.85, y: 330.26}
